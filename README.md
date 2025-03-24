@@ -13,7 +13,7 @@ LinguaLearn is a comprehensive language learning application that helps users tr
 
 ## Live Demo
 
-The application is deployed and accessible at: http://44.202.43.15
+The application is deployed and accessible at: https://learn.supserrr.tech
 
 ## Architecture
 
