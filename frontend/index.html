@@ -4,26 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LinguaLearn - Language Learning Tool</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/style.css">
-<script src="js/app.js"></script>
-<script src="js/translator.js"></script>
-<script src="js/speechService.js"></script>
-<script src="js/vocabulary.js"></script>
-<!-- etc. -->
+  <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
   <header>
     <div class="container">
       <div class="logo">
+        <i class="fas fa-language logo-icon"></i>
         <h1>LinguaLearn</h1>
       </div>
       <nav>
         <ul>
-          <li><a href="#translator" class="active">Translator</a></li>
-          <li><a href="#vocabulary">My Vocabulary</a></li>
-          <li><a href="#practice">Practice</a></li>
+          <li><a href="#translator" class="active"><i class="fas fa-exchange-alt"></i> Translator</a></li>
+          <li><a href="#vocabulary"><i class="fas fa-book"></i> Vocabulary</a></li>
+          <li><a href="#practice"><i class="fas fa-graduation-cap"></i> Practice</a></li>
         </ul>
       </nav>
     </div>
@@ -51,7 +48,7 @@
                 <option value="hi">Hindi</option>
               </select>
             </div>
-            <button id="swapLanguages">⇄</button>
+            <button id="swapLanguages"><i class="fas fa-exchange-alt"></i></button>
             <div class="to-lang">
               <label for="targetLanguage">To:</label>
               <select id="targetLanguage">
@@ -73,21 +70,21 @@
             <div class="input-box">
               <textarea id="sourceText" placeholder="Enter text to translate..."></textarea>
               <div class="controls">
-                <button id="sourceSpeech" class="speech-btn">🔊</button>
-                <button id="clearSource" class="clear-btn">Clear</button>
+                <button id="sourceSpeech" class="speech-btn" title="Listen"><i class="fas fa-volume-up"></i></button>
+                <button id="clearSource" class="clear-btn" title="Clear"><i class="fas fa-times"></i></button>
               </div>
             </div>
             
             <div class="input-box">
               <textarea id="translatedText" placeholder="Translation will appear here..." readonly></textarea>
               <div class="controls">
-                <button id="targetSpeech" class="speech-btn">🔊</button>
-                <button id="saveWord" class="save-btn">Save to Vocabulary</button>
+                <button id="targetSpeech" class="speech-btn" title="Listen"><i class="fas fa-volume-up"></i></button>
+                <button id="saveWord" class="save-btn" title="Save to vocabulary"><i class="fas fa-save"></i> Save</button>
               </div>
             </div>
           </div>
           
-          <button id="translateBtn" class="primary-btn">Translate</button>
+          <button id="translateBtn" class="primary-btn"><i class="fas fa-language"></i> Translate</button>
         </div>
       </div>
     </section>
@@ -116,6 +113,7 @@
         <div class="vocabulary-list" id="vocabularyList">
           <!-- Vocabulary items will be added here dynamically -->
           <div class="empty-state">
+            <i class="fas fa-book-open"></i>
             <p>You haven't saved any words yet. Start translating and save words to build your vocabulary!</p>
           </div>
         </div>
@@ -128,21 +126,24 @@
         <h2>Practice Your Skills</h2>
         <div class="practice-options">
           <div class="practice-card" id="flashcards">
+            <i class="fas fa-clone"></i>
             <h3>Flashcards</h3>
             <p>Review your saved vocabulary with flashcards</p>
-            <button class="secondary-btn">Start</button>
+            <button class="secondary-btn"><i class="fas fa-play"></i> Start</button>
           </div>
           
           <div class="practice-card" id="matchingGame">
+            <i class="fas fa-th"></i>
             <h3>Matching Game</h3>
             <p>Match words with their translations</p>
-            <button class="secondary-btn">Start</button>
+            <button class="secondary-btn"><i class="fas fa-play"></i> Start</button>
           </div>
           
           <div class="practice-card" id="fillBlanks">
+            <i class="fas fa-edit"></i>
             <h3>Fill in the Blanks</h3>
             <p>Complete sentences with the correct words</p>
-            <button class="secondary-btn">Start</button>
+            <button class="secondary-btn"><i class="fas fa-play"></i> Start</button>
           </div>
         </div>
         
@@ -151,19 +152,3 @@
         </div>
       </div>
     </section>
-  </main>
-
-  <footer>
-    <div class="container">
-      <p>&copy; 2023 LinguaLearn. Created for educational purposes.</p>
-      <p>Powered by Google Translate API and Google Text-to-Speech API.</p>
-    </div>
-  </footer>
-
-  <!-- JavaScript Files -->
-  <script src="js/app.js"></script>
-  <script src="js/translator.js"></script>
-  <script src="js/speechService.js"></script>
-  <script src="js/vocabulary.js"></script>
-</body>
-</html>
