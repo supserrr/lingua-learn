@@ -144,12 +144,7 @@ function setupTranslator() {
 
 // API call to translate text
 async function translateText(text, sourceLanguage, targetLanguage) {
-  // In a real application, this would call your backend API
-  // For development purposes, we'll use a simulated API response
-  
   try {
-    // Uncomment this in a real application
-    /*
     const response = await fetch('/api/translate', {
       method: 'POST',
       headers: {
@@ -167,61 +162,7 @@ async function translateText(text, sourceLanguage, targetLanguage) {
     }
     
     const data = await response.json();
-    return data.translatedText;
-    */
-    
-    // For development, simulate a delayed response
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        // Simple simulation of translation (not accurate)
-        const translations = {
-          'en-es': {
-            'hello': 'hola',
-            'world': 'mundo',
-            'how are you': 'cómo estás',
-            'goodbye': 'adiós',
-            'thank you': 'gracias',
-            'please': 'por favor',
-            'yes': 'sí',
-            'no': 'no',
-            'sorry': 'lo siento',
-            'help': 'ayuda'
-          },
-          'en-fr': {
-            'hello': 'bonjour',
-            'world': 'monde',
-            'how are you': 'comment allez-vous',
-            'goodbye': 'au revoir',
-            'thank you': 'merci',
-            'please': 's\'il vous plaît',
-            'yes': 'oui',
-            'no': 'non',
-            'sorry': 'désolé',
-            'help': 'aide'
-          }
-        };
-        
-        const key = `${sourceLanguage}-${targetLanguage}`;
-        const reverseKey = `${targetLanguage}-${sourceLanguage}`;
-        
-        if (translations[key] && translations[key][text.toLowerCase()]) {
-          resolve(translations[key][text.toLowerCase()]);
-        } else if (translations[reverseKey]) {
-          // Check if it's a reverse translation
-          const reverseTranslation = Object.entries(translations[reverseKey])
-            .find(([_, value]) => value.toLowerCase() === text.toLowerCase());
-          
-          if (reverseTranslation) {
-            resolve(reverseTranslation[0]);
-          } else {
-            resolve(`[Translated: ${text}]`);
-          }
-        } else {
-          resolve(`[Translated: ${text}]`);
-        }
-      }, 1000);
-    });
-    
+    return data.data.translations[0].translatedText;
   } catch (error) {
     console.error('Translation error:', error);
     throw new Error('Failed to translate text');

@@ -2,12 +2,8 @@
 
 // API call to convert text to speech
 async function textToSpeech(text, languageCode = 'en-US') {
-  // In a real application, this would call your backend API
-  // For development purposes, we'll use the browser's built-in speech synthesis
-  
   try {
-    // Uncomment this in a real application
-    /*
+    // First try to use the Google Cloud API
     const response = await fetch('/api/text-to-speech', {
       method: 'POST',
       headers: {
@@ -25,9 +21,10 @@ async function textToSpeech(text, languageCode = 'en-US') {
     
     const data = await response.json();
     return data.audioContent; // Base64 encoded audio
-    */
+  } catch (apiError) {
+    console.warn('API text-to-speech failed, falling back to browser synthesis:', apiError);
     
-    // For development, use browser's speech synthesis
+    // Fallback to browser's speech synthesis if API fails
     return new Promise((resolve, reject) => {
       // Check if speech synthesis is supported
       if (!window.speechSynthesis) {
@@ -44,16 +41,13 @@ async function textToSpeech(text, languageCode = 'en-US') {
       // Set language
       utterance.lang = languageCode;
       
+      // Handle completion/error
+      utterance.onend = () => resolve('browser-speech-synthesis');
+      utterance.onerror = (err) => reject(new Error(`Speech synthesis error: ${err.message}`));
+      
       // Speak
       speechSynthesis.speak(utterance);
-      
-      // Resolve with a placeholder (since we're not returning actual audio content)
-      resolve('browser-speech-synthesis');
     });
-    
-  } catch (error) {
-    console.error('Text-to-speech error:', error);
-    throw new Error('Failed to convert text to speech');
   }
 }
 
@@ -64,7 +58,12 @@ function playAudio(audioContent) {
     return;
   }
   
-  // For real API implementation
+  // For API implementation
   const audio = new Audio(`data:audio/mp3;base64,${audioContent}`);
-  audio.play();
+  audio.play().catch(err => {
+    console.error('Error playing audio:', err);
+    
+    // Fallback to alert
+    alert('Could not play audio. Your browser may not support this feature.');
+  });
 }
