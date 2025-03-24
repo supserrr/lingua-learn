@@ -74,7 +74,7 @@ The load balancer uses the "least connections" algorithm to distribute traffic e
 
 ## Deployment
 
-This application is designed to be deployed on two web servers with a load balancer. Detailed deployment instructions can be found in the [deployment documentation](deployment_instructions.md).
+This application is designed to be deployed on two web servers with a load balancer. Detailed deployment instructions can be found in the [deployment documentation](deployment-doc.md).
 
 ### Server Setup
 
