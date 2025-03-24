@@ -1,15 +1,24 @@
-/* Base Styles */
+/* Base Styles with improved variables */
 :root {
   --primary-color: #4f46e5;
   --primary-hover: #4338ca;
+  --primary-light: #e0e7ff;
   --secondary-color: #10b981;
+  --secondary-hover: #059669;
+  --accent-color: #f97316;
   --light-gray: #f3f4f6;
   --medium-gray: #d1d5db;
   --dark-gray: #6b7280;
   --text-color: #1f2937;
   --white: #ffffff;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
   --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --border-radius-sm: 0.25rem;
   --border-radius: 0.5rem;
+  --border-radius-lg: 1rem;
+  --transition: all 0.3s ease;
+  --max-width: 1200px;
 }
 
 * {
@@ -26,7 +35,7 @@ body {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: var(--max-width);
   margin: 0 auto;
   padding: 0 1.5rem;
 }
@@ -34,18 +43,20 @@ body {
 a {
   text-decoration: none;
   color: inherit;
+  transition: var(--transition);
 }
 
 button {
   cursor: pointer;
   font-family: inherit;
+  transition: var(--transition);
 }
 
 .hidden {
   display: none !important;
 }
 
-/* Header Styles */
+/* Enhanced Header Styles */
 header {
   background-color: var(--white);
   box-shadow: var(--shadow);
@@ -63,10 +74,21 @@ header .container {
   padding: 1rem 1.5rem;
 }
 
+.logo {
+  display: flex;
+  align-items: center;
+}
+
 .logo h1 {
   color: var(--primary-color);
   font-size: 1.8rem;
   font-weight: 600;
+  margin-left: 0.5rem;
+}
+
+.logo-icon {
+  font-size: 2.2rem;
+  color: var(--primary-color);
 }
 
 nav ul {
@@ -104,7 +126,7 @@ nav ul li a.active::after {
   border-radius: 3px;
 }
 
-/* Main Content Styles */
+/* Improved Main Content Styles */
 main {
   margin-top: 80px;
   min-height: calc(100vh - 160px);
@@ -119,14 +141,41 @@ h2 {
   margin-bottom: 2rem;
   color: var(--text-color);
   text-align: center;
+  position: relative;
+  padding-bottom: 0.5rem;
 }
 
-/* Translator Section */
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background-color: var(--primary-color);
+  border-radius: 3px;
+}
+
+/* Enhanced Translator Section */
 .translator-container {
   background-color: var(--white);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);
   padding: 2rem;
+  margin-top: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.translator-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
 }
 
 .language-selector {
@@ -145,16 +194,29 @@ h2 {
 .from-lang label, .to-lang label {
   margin-right: 0.5rem;
   font-weight: 500;
+  color: var(--dark-gray);
 }
 
 .from-lang select, .to-lang select {
-  padding: 0.5rem 1rem;
+  padding: 0.7rem 1rem;
   border: 1px solid var(--medium-gray);
   border-radius: var(--border-radius);
   background-color: var(--white);
   font-family: inherit;
   font-size: 1rem;
   flex: 1;
+  transition: var(--transition);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%236b7280' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+
+.from-lang select:focus, .to-lang select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-light);
 }
 
 #swapLanguages {
@@ -172,8 +234,10 @@ h2 {
 }
 
 #swapLanguages:hover {
-  background-color: var(--light-gray);
+  background-color: var(--primary-light);
   transform: rotate(180deg);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
 }
 
 .translation-area {
@@ -185,6 +249,14 @@ h2 {
 .input-box {
   flex: 1;
   position: relative;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  background-color: var(--white);
+  transition: var(--transition);
+}
+
+.input-box:hover {
+  box-shadow: var(--shadow);
 }
 
 textarea {
@@ -196,25 +268,37 @@ textarea {
   font-family: inherit;
   font-size: 1rem;
   resize: none;
+  transition: var(--transition);
+}
+
+textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-light);
 }
 
 #translatedText {
   background-color: var(--light-gray);
+  border-color: var(--light-gray);
 }
 
 .controls {
   display: flex;
   justify-content: flex-end;
   margin-top: 0.5rem;
+  padding: 0 0.5rem;
 }
 
-.speech-btn, .clear-btn, .save-btn {
+.speech-btn, .clear-btn {
   padding: 0.5rem;
   background-color: var(--white);
   border: 1px solid var(--medium-gray);
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-sm);
   margin-left: 0.5rem;
-  transition: all 0.3s;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .speech-btn:hover, .clear-btn:hover {
@@ -225,55 +309,104 @@ textarea {
   background-color: var(--secondary-color);
   color: var(--white);
   border: none;
+  border-radius: var(--border-radius-sm);
   padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
 }
 
 .save-btn:hover {
-  opacity: 0.9;
+  background-color: var(--secondary-hover);
+}
+
+.save-btn i {
+  margin-right: 0.5rem;
 }
 
 .primary-btn {
   display: block;
   width: 100%;
-  padding: 0.8rem 0;
+  padding: 1rem 0;
   background-color: var(--primary-color);
   color: var(--white);
   border: none;
   border-radius: var(--border-radius);
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
   text-align: center;
-  transition: background-color 0.3s;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.primary-btn::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateX(-100%);
+  transition: var(--transition);
 }
 
 .primary-btn:hover {
   background-color: var(--primary-hover);
 }
 
-/* Vocabulary Section */
+.primary-btn:hover::before {
+  transform: translateX(0);
+}
+
+/* Improved Vocabulary Section */
 .filter-controls {
   display: flex;
   justify-content: space-between;
   margin-bottom: 1.5rem;
+  background-color: var(--white);
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
 }
 
 #vocabLanguageFilter {
-  padding: 0.5rem 1rem;
+  padding: 0.7rem 1rem;
   border: 1px solid var(--medium-gray);
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-sm);
   background-color: var(--white);
   font-family: inherit;
   font-size: 1rem;
+  transition: var(--transition);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%236b7280' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+
+#vocabLanguageFilter:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-light);
 }
 
 #vocabSearch {
   flex: 1;
   margin-left: 1rem;
-  padding: 0.5rem 1rem;
+  padding: 0.7rem 1rem;
   border: 1px solid var(--medium-gray);
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-sm);
   font-family: inherit;
   font-size: 1rem;
+  transition: var(--transition);
+}
+
+#vocabSearch:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-light);
 }
 
 .vocabulary-list {
@@ -286,11 +419,19 @@ textarea {
 
 .empty-state {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 200px;
   color: var(--dark-gray);
   text-align: center;
+  padding: 2rem;
+}
+
+.empty-state i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: var(--medium-gray);
 }
 
 .vocab-item {
@@ -299,6 +440,11 @@ textarea {
   align-items: center;
   padding: 1rem;
   border-bottom: 1px solid var(--light-gray);
+  transition: var(--transition);
+}
+
+.vocab-item:hover {
+  background-color: var(--primary-light);
 }
 
 .vocab-item:last-child {
@@ -312,11 +458,24 @@ textarea {
 .word-info h3 {
   font-size: 1.2rem;
   margin-bottom: 0.25rem;
+  color: var(--primary-color);
 }
 
 .word-info p {
+  color: var(--text-color);
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.language-info {
+  font-size: 0.8rem;
   color: var(--dark-gray);
-  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+}
+
+.language-info i {
+  margin-right: 0.25rem;
 }
 
 .vocab-actions {
@@ -328,15 +487,24 @@ textarea {
   padding: 0.5rem;
   background-color: var(--white);
   border: 1px solid var(--medium-gray);
-  border-radius: var(--border-radius);
-  transition: all 0.3s;
+  border-radius: var(--border-radius-sm);
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .vocab-actions button:hover {
   background-color: var(--light-gray);
 }
 
-/* Practice Section */
+.delete-btn:hover {
+  background-color: #fee2e2;
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+/* Improved Practice Section */
 .practice-options {
   display: flex;
   justify-content: space-between;
@@ -351,11 +519,20 @@ textarea {
   box-shadow: var(--shadow);
   padding: 1.5rem;
   text-align: center;
-  transition: transform 0.3s;
+  transition: var(--transition);
+  border: 2px solid transparent;
 }
 
 .practice-card:hover {
   transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-color);
+}
+
+.practice-card i {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
 }
 
 .practice-card h3 {
@@ -371,15 +548,25 @@ textarea {
 .secondary-btn {
   background-color: var(--light-gray);
   border: none;
-  border-radius: var(--border-radius);
-  padding: 0.5rem 1.5rem;
+  border-radius: var(--border-radius-sm);
+  padding: 0.7rem 1.5rem;
   font-size: 0.9rem;
   font-weight: 500;
-  transition: background-color 0.3s;
+  transition: var(--transition);
+  color: var(--text-color);
+  display: inline-flex;
+  align-items: center;
+}
+
+.secondary-btn i {
+  font-size: 1rem;
+  margin-right: 0.5rem;
+  color: var(--primary-color);
 }
 
 .secondary-btn:hover {
-  background-color: var(--medium-gray);
+  background-color: var(--primary-light);
+  color: var(--primary-color);
 }
 
 .practice-area {
@@ -390,20 +577,112 @@ textarea {
   min-height: 400px;
 }
 
-/* Footer Styles */
+/* Flashcard styles */
+.flashcard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.flashcard {
+  width: 100%;
+  max-width: 400px;
+  height: 250px;
+  perspective: 1000px;
+  margin-bottom: 2rem;
+}
+
+.flashcard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flashcard.flipped .flashcard-inner {
+  transform: rotateY(180deg);
+}
+
+.flashcard-front, .flashcard-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+.flashcard-front {
+  background-color: var(--primary-light);
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.flashcard-back {
+  background-color: var(--white);
+  color: var(--text-color);
+  transform: rotateY(180deg);
+  font-size: 1.5rem;
+}
+
+.flashcard-controls {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Enhanced Footer Styles */
 footer {
   background-color: var(--white);
   text-align: center;
-  padding: 1.5rem 0;
+  padding: 2rem 0;
   color: var(--dark-gray);
   font-size: 0.9rem;
+  position: relative;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
 }
 
 footer p {
   margin-bottom: 0.5rem;
 }
 
-/* Responsive Styles */
+footer a {
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Styles with Improvements */
+@media (max-width: 992px) {
+  .practice-options {
+    flex-wrap: wrap;
+  }
+  
+  .practice-card {
+    flex: 0 0 calc(50% - 1rem);
+    margin-bottom: 1rem;
+  }
+}
+
 @media (max-width: 768px) {
   .translation-area {
     flex-direction: column;
@@ -411,6 +690,10 @@ footer p {
   
   .practice-options {
     flex-direction: column;
+  }
+  
+  .practice-card {
+    flex: 0 0 100%;
   }
   
   .language-selector {
@@ -426,4 +709,91 @@ footer p {
   #swapLanguages:hover {
     transform: rotate(270deg);
   }
+  
+  nav ul li {
+    margin-left: 1rem;
+  }
+  
+  .vocabulary-list {
+    padding: 1rem;
+  }
+  
+  .vocab-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .vocab-actions {
+    margin-top: 0.5rem;
+    align-self: flex-end;
+  }
+}
+
+@media (max-width: 480px) {
+  header .container {
+    flex-direction: column;
+    padding: 0.5rem;
+  }
+  
+  .logo {
+    margin-bottom: 0.5rem;
+  }
+  
+  nav ul {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  nav ul li {
+    margin-left: 0;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  main {
+    margin-top: 120px;
+  }
+  
+  .translator-container, .practice-area, .vocabulary-list {
+    padding: 1rem;
+  }
+  
+  .filter-controls {
+    flex-direction: column;
+  }
+  
+  #vocabSearch {
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+  
+  .controls {
+    justify-content: space-between;
+  }
+  
+  .speech-btn, .clear-btn, .save-btn {
+    padding: 0.4rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Animation effects */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.section {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes slideIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.translator-container, .vocabulary-list, .practice-options, .practice-area {
+  animation: slideIn 0.5s ease-in-out;
 }
