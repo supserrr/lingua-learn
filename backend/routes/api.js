@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
+const fetch = require('node-fetch');
 const { TextToSpeechClient } = require('@google-cloud/text-to-speech');
 const { TranslationServiceClient } = require('@google-cloud/translate');
 
@@ -8,28 +9,47 @@ const { TranslationServiceClient } = require('@google-cloud/translate');
 const textToSpeechClient = new TextToSpeechClient();
 const translationClient = new TranslationServiceClient();
 
-// Translation API
+// Translation API using RapidAPI
 router.post('/translate', async (req, res) => {
   try {
     const { text, targetLanguage, sourceLanguage = 'en' } = req.body;
     
-    // For development purposes, we'll use a simple approach first
-    // In production, you'd use the proper Google Cloud credentials
-    const response = await axios.get(
-      `https://translation.googleapis.com/language/translate/v2?key=${process.env.GOOGLE_API_KEY}`,
-      {
-        params: {
-          q: text,
-          target: targetLanguage,
-          source: sourceLanguage
-        }
-      }
-    );
+    const url = 'https://deep-translate1.p.rapidapi.com/language/translate/v2';
+    const options = {
+      method: 'POST',
+      headers: {
+        'x-rapidapi-key': process.env.RAPIDAPI_KEY || '1bac348c61msh514a66a69096841p154653jsn03abaa71adb2',
+        'x-rapidapi-host': 'deep-translate1.p.rapidapi.com',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        q: text,
+        source: sourceLanguage,
+        target: targetLanguage
+      })
+    };
+
+    const response = await fetch(url, options);
     
-    res.json(response.data);
+    if (!response.ok) {
+      throw new Error(`API responded with status: ${response.status}`);
+    }
+    
+    const result = await response.json();
+    
+    // Format response to match expected structure
+    res.json({
+      data: {
+        translations: [
+          {
+            translatedText: result.data ? result.data.translations.translatedText : text
+          }
+        ]
+      }
+    });
   } catch (error) {
     console.error('Translation error:', error);
-    res.status(500).json({ error: 'Translation failed' });
+    res.status(500).json({ error: 'Translation failed', message: error.message });
   }
 });
 
