@@ -1,6 +1,6 @@
 # LinguaLearn - Language Learning Tool
 
-[![Demo Video](https://img.shields.io/badge/Demo-Video-red)](https://your-video-link-here)
+[![Demo Video](https://img.shields.io/badge/Demo-Video-red)](https://www.youtube.com/watch?v=DVdAD2ZafKg)
 
 LinguaLearn is a comprehensive language learning application that helps users translate text, practice pronunciation with text-to-speech functionality, build vocabulary, and practice language skills through interactive exercises.
 
